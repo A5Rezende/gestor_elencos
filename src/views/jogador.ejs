@@ -1,0 +1,194 @@
+<%- include('./includes/head') %>
+<%- include('./includes/nav') %>
+
+<!-- JOGADOR - INICIO -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+    
+        <div class="col-lg-8 my-3">
+            <h1 class="text-center">Jogadores</h1>
+            <p class="text-center lead">Adicione ou edite seus jogadores</p>
+    
+            <%- include('./includes/messages') %>
+    
+            <% if(jogador._id) { %>
+            <form action="/jogador/edita/<%= jogador._id %>" method="post">
+            <% } else { %>
+            <form action="/jogador/adiciona" method="post">
+            <% } %>
+                <input type="hidden" name="_csrf" value=<%= csrfToken %>>
+                <input type="hidden" name="user" value=<%= user._id %>>
+
+                <div class="mb-3">
+                    <label>Nome:</label>
+                    <input type="text" class="form-control" name="nome" value="<%= jogador.nome %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Posição:</label><br>
+
+                    <div class="row">
+                        <div class="col-2" style="display: flex; align-items: center; justify-content: center;">
+                            <label style="color: blue;"><b>Defesa</b></label>
+                        </div>
+                        <div class="col-10">
+                            
+                            <input type="checkbox" class="btn-check" name="posicao" value="gol" id="posicao-gol" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('gol')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-primary" for="posicao-gol">GOL</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="ade" id="posicao-ade" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('ade')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-primary" for="posicao-ade">ADE</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="le" id="posicao-le" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('le')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-primary" for="posicao-le">LE</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="zag" id="posicao-zag" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('zag')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-primary" for="posicao-zag">ZAG</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="ld" id="posicao-ld" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('ld')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-primary" for="posicao-ld">LD</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="add" id="posicao-add" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('add')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-primary" for="posicao-add">ADD</label>  
+
+                        </div>
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-2" style="display: flex; align-items: center; justify-content: center;">
+                            <label style="color: green;"><b>Meio-campo</b></label>
+                        </div>
+                        <div class="col-10">
+                            <input type="checkbox" class="btn-check" name="posicao" value="vol" id="posicao-vol" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('vol')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-success" for="posicao-vol">VOL</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="mc" id="posicao-mc" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('mc')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-success" for="posicao-mc">MC</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="me" id="posicao-me" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('me')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-success" for="posicao-me">ME</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="md" id="posicao-md" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('md')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-success" for="posicao-md">MD</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="mei" id="posicao-mei" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('mei')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-success" for="posicao-mei">MEI</label>    
+                        </div>
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-2" style="display: flex; align-items: center; justify-content: center;">
+                            <label style="color: red;"><b>Ataque</b></label>
+                        </div>
+                        <div class="col-10">
+                            <input type="checkbox" class="btn-check" name="posicao" value="pe" id="posicao-pe" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('pe')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-danger" for="posicao-pe">PE</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="pd" id="posicao-pd" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('pd')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-danger" for="posicao-pd">PD</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="sa" id="posicao-sa" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('sa')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-danger" for="posicao-sa">SA</label>
+
+                            <input type="checkbox" class="btn-check" name="posicao" value="ata" id="posicao-ata" autocomplete="off" <% if(jogador._id) { %> <%= jogador.posicao.includes('ata')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-danger" for="posicao-ata">ATA</label>    
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label>Idade:</label>
+                    <input type="number" class="form-control" name="idade" value="<%= jogador.idade %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Altura (cm):</label>
+                    <input type="number" class="form-control" name="altura" value="<%= jogador.altura %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Overal</label>
+                    <input type="number" class="form-control" name="overal" value="<%= jogador.overal %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Time</label>
+                    <input type="text" class="form-control" name="time" value="<%= jogador.time %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Tipo</label>
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" class="btn-check" name="tipo" value="elenco" id="tipo-elenco" autocomplete="off" <% if(jogador._id) { %> <%= jogador.tipo.includes('elenco')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-secondary" for="tipo-elenco">Elenco</label>
+
+                            <input type="checkbox" class="btn-check" name="tipo" value="base" id="tipo-base" autocomplete="off" <% if(jogador._id) { %> <%= jogador.tipo.includes('base')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-secondary" for="tipo-base">Base</label>
+
+                            <input type="checkbox" class="btn-check" name="tipo" value="vendas" id="tipo-vendas" autocomplete="off" <% if(jogador._id) { %> <%= jogador.tipo.includes('vendas')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-secondary" for="tipo-vendas">Vendas</label>
+
+                            <input type="checkbox" class="btn-check" name="tipo" value="compras" id="tipo-compras" autocomplete="off" <% if(jogador._id) { %> <%= jogador.tipo.includes('compras')? 'checked' : '' %> <% } %>>
+                            <label class="btn btn-outline-secondary" for="tipo-compras">Compras</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Salario</label>
+                    <input type="number" class="form-control" name="salario" value="<%= jogador.salario %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Importancia</label>
+                    <select name="importancia" class="form-select" aria-label="Default select example">
+                        <option>Selecione um tipo em que se encontra o jogador</option>
+                        <option <% if(jogador._id) { %> <% if (jogador.importancia === 'Crucial') { %> selected <% } %> <% } %> value="Crucial">Crucial</option>
+                        <option <% if(jogador._id) { %> <% if (jogador.importancia === 'Importante') { %> selected <% } %> <% } %> value="Importante">Importante</option>
+                        <option <% if(jogador._id) { %> <% if (jogador.importancia === 'Rodizio') { %> selected <% } %> <% } %> value="Rodizio">Rodizio</option>
+                        <option <% if(jogador._id) { %> <% if (jogador.importancia === 'Esporadico') { %> selected <% } %> <% } %> value="Esporadico">Esporadico</option>
+                        <option <% if(jogador._id) { %> <% if (jogador.importancia === 'Promessa') { %> selected <% } %> <% } %> value="Promessa">Promessa</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Situação de contrato</label>
+                    <input type="text" class="form-control" name="situacao_contrato" value="<%= jogador.situacao_contrato %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Potêncial Minimo</label>
+                    <input type="number" class="form-control" name="potencial_minimo" value="<%= jogador.potencial_minimo %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Potêncial Maximo</label>
+                    <input type="number" class="form-control" name="potencial_maximo" value="<%= jogador.potencial_maximo %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Pontos Fracos</label>
+                    <input type="text" class="form-control" name="pontos_fracos" value="<%= jogador.pontos_fracos %>"> 
+                </div>
+
+                <div class="mb-3">
+                    <label>Pontos Fortes</label>
+                    <input type="text" class="form-control" name="pontos_fortes" value="<%= jogador.pontos_fortes %>"> 
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary">Salvar</button>
+
+            </form>
+        </div>
+        
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+<!-- JOGADOR - FINAL -->
+
+<%- include('./includes/footer') %>
